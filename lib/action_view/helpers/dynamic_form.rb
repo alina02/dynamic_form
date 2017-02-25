@@ -187,6 +187,8 @@ module ActionView
         options = params.extract_options!.symbolize_keys
 
         objects = Array.wrap(options.delete(:object) || params).map do |object|
+          next if object.to_s.empty?
+
           object = instance_variable_get("@#{object}") unless object.respond_to?(:to_model)
           object = convert_to_model(object)
 
